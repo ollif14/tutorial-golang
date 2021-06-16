@@ -1,0 +1,134 @@
+definitions:
+  model.EmployeeRequest:
+    properties:
+      email_address:
+        type: string
+      first_name:
+        type: string
+      last_name:
+        type: string
+    required:
+    - email_address
+    - first_name
+    - last_name
+    type: object
+  model.EmployeeUpdateReq:
+    properties:
+      email_address:
+        type: string
+      first_name:
+        type: string
+      last_name:
+        type: string
+    type: object
+  model.Employees:
+    properties:
+      email_address:
+        type: string
+      first_name:
+        type: string
+      id:
+        type: integer
+      last_name:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /employees:
+    get:
+      consumes:
+      - application/json
+      description: get all employees
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Employees'
+            type: array
+      summary: list employees
+    post:
+      consumes:
+      - application/json
+      description: create employee
+      parameters:
+      - description: Employee
+        in: body
+        name: employee
+        required: true
+        schema:
+          $ref: '#/definitions/model.EmployeeRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Employees'
+      summary: create employee
+  /employees/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: delete
+      parameters:
+      - description: Employee ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Employees'
+      summary: delete employee
+    get:
+      consumes:
+      - application/json
+      description: get by ID
+      operationId: get-string-by-int
+      parameters:
+      - description: Employee ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Employees'
+      summary: get employee by id
+    put:
+      consumes:
+      - application/json
+      description: update employee
+      parameters:
+      - description: Employee ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Employee
+        in: body
+        name: employee
+        required: true
+        schema:
+          $ref: '#/definitions/model.EmployeeUpdateReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Employees'
+      summary: update employee
+swagger: "2.0"
